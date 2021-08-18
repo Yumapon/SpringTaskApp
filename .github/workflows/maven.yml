@@ -7,7 +7,7 @@ name: Build and Push
 #masterブランチへのpush時にこのワークフローを実行するよう指定
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 #以下JOB
 jobs:
