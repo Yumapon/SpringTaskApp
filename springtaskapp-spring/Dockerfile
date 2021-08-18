@@ -1,4 +1,4 @@
-FROM container-registry.oracle.com/java/jdk:11.0.8
+FROM openjdk:11.0.12-jdk
 
 COPY ./target/springtaskapp-spring-0.0.1-SNAPSHOT.jar /root/backend.jar
 
