@@ -43,7 +43,7 @@ jobs:
     - name: Build, tag, and push image to Github
       env:
         DOCKERHUB_REPOSITORY: springtaskapp
-        IMAGE_TAG: github2
+        IMAGE_TAG: github3
       run: |
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/$DOCKERHUB_REPOSITORY:$IMAGE_TAG springtaskapp-spring
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/$DOCKERHUB_REPOSITORY:$IMAGE_TAG
