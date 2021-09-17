@@ -71,6 +71,12 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
 
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: keropon48/springtaskapp
+
     # 参考：https://github.com/peter-evans/repository-dispatch#token
     - name: dispatch update-pkgs
       uses: peter-evans/repository-dispatch@v1
