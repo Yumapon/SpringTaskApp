@@ -12,7 +12,7 @@ on:
 #以下JOB
 jobs:
   #ジョブ名(build)を設定
-  build-and-push:
+  ci:
     #ジョブの実行環境
     runs-on: ubuntu-latest
 
@@ -43,10 +43,34 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build, tag, and push image to Github
-      env:
-        DOCKERHUB_REPOSITORY: springtaskapp
-        IMAGE_TAG: github3
-      run: |
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/$DOCKERHUB_REPOSITORY:$IMAGE_TAG springtaskapp-spring
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/$DOCKERHUB_REPOSITORY:$IMAGE_TAG
+    #Buildの方法を変更しました
+    #- name: Build, tag, and push image to Github
+    #  env:
+    #    DOCKERHUB_REPOSITORY: springtaskapp
+    #    IMAGE_TAG: github3
+    #  run: |
+    #    docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/$DOCKERHUB_REPOSITORY:$IMAGE_TAG springtaskapp-spring
+    #    docker push ${{ secrets.DOCKERHUB_USERNAME }}/$DOCKERHUB_REPOSITORY:$IMAGE_TAG
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+      with:
+        images: keropon48/springtaskapp #ここは各自で用意したDockerhubのリポジトリを指定
+      
+    - name: Build and push Docker image
+      uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+
+    # 参考：https://github.com/peter-evans/repository-dispatch#token
+    #- name: dispatch update-pkgs
+    #  uses: peter-evans/repository-dispatch@v1
+    #  with:
+    #    token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+    #    repository: Yumapon/SpringTaskApp
+    #    event-type: update-pkgs
+    #    client-payload: '{"part": "back", "imagetag": ""}'
