@@ -79,3 +79,4 @@ jobs:
         repository: Yumapon/DockerCompose_ECS
         event-type: update-pkgs
         client-payload: '{"part": "back", "imagetag": "${{ steps.meta.outputs.tags }}"}'
+        
