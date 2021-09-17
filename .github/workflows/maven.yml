@@ -78,5 +78,4 @@ jobs:
         token: ${{ secrets.GIT_ACCESS_TOKEN }}
         repository: Yumapon/DockerCompose_ECS
         event-type: update-pkgs
-        client-payload: '{"part": "back", "imagetag": "${{ steps.meta.outputs.tags }}"}'
-        
+        client-payload: '{"part": "back", "imagetag": "${{ steps.meta.outputs.tags[0] }}"}'
