@@ -19,6 +19,12 @@ jobs:
     #ジョブの実行環境
     runs-on: ubuntu-latest
 
+    env:
+      SPRING_DATASOURCE_URL: ${{ secrets.URL }}
+      SPRING_DATASOURCE_USERNAME: ${{ secrets.USERNAME }}
+      SPRING_DATASOURCE_PASSWORD: ${{ secrets.PASSWORD }}
+      SPRING_DATASOURCE_DRIVERCLASSNAME:  ${{ secrets.DRIVER }}
+
     #実行する処理やコマンドを指定
     steps:
     - uses: actions/checkout@v2 #リポジトリからのチェックアウトを行う「actions/checkout」アクションを実行する
