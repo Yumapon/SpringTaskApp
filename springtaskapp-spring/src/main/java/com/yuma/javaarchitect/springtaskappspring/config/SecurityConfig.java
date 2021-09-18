@@ -1,3 +1,4 @@
+/*
 package com.yuma.javaarchitect.springtaskappspring.config;
 
 import javax.sql.DataSource;
@@ -33,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
      * @param auth
      * @throws Exception
      */
+
+/*
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
@@ -61,3 +64,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
     
 }
+*/
