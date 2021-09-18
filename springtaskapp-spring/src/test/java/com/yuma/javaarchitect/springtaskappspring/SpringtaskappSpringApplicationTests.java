@@ -1,9 +1,9 @@
 package com.yuma.javaarchitect.springtaskappspring;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class SpringtaskappSpringApplicationTests {
 
 	@Test
