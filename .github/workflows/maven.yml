@@ -77,11 +77,11 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-#        build-args: |
-#            url=${{ secrets.URL }}
-#            username=${{ secrets.USERNAME }}
-#            password=${{ secrets.PASSWORD }}
-#            driver=${{ secrets.DRIVER }}
+        build-args: |
+            url=${{ secrets.URL }}
+            username=${{ secrets.USERNAME }}
+            password=${{ secrets.PASSWORD }}
+            driver=${{ secrets.DRIVER }}
 
     # 参考：https://github.com/peter-evans/repository-dispatch#token
     - name: dispatch update-pkgs
