@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -42,6 +43,7 @@ public class GetTaskAPI {
 
     @NonNull
     @GetMapping(path = "getall", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     public GetTaskAllResDto getTaskAll(){
 
         List<Task> taskList = usecase.invoke();
