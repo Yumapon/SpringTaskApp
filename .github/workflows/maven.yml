@@ -19,11 +19,12 @@ jobs:
     #ジョブの実行環境
     runs-on: ubuntu-latest
 
-    env:
-      SPRING_DATASOURCE_URL: ${{ secrets.URL }}
-      SPRING_DATASOURCE_USERNAME: ${{ secrets.USERNAME }}
-      SPRING_DATASOURCE_PASSWORD: ${{ secrets.PASSWORD }}
-      SPRING_DATASOURCE_DRIVERCLASSNAME:  ${{ secrets.DRIVER }}
+# Dockerコンテナに変数を渡す挙動をDockerCompose側に移動
+#    env:
+#      SPRING_DATASOURCE_URL: ${{ secrets.URL }}
+#      SPRING_DATASOURCE_USERNAME: ${{ secrets.USERNAME }}
+#      SPRING_DATASOURCE_PASSWORD: ${{ secrets.PASSWORD }}
+#      SPRING_DATASOURCE_DRIVERCLASSNAME:  ${{ secrets.DRIVER }}
 
     #実行する処理やコマンドを指定
     steps:
@@ -77,11 +78,12 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        build-args: |
-            url=${{ secrets.URL }}
-            username=${{ secrets.USERNAME }}
-            password=${{ secrets.PASSWORD }}
-            driver=${{ secrets.DRIVER }}
+# Dockerコンテナに変数を渡す挙動をDockerCompose側に移動
+#        build-args: |
+#            url=${{ secrets.URL }}
+#            username=${{ secrets.USERNAME }}
+#            password=${{ secrets.PASSWORD }}
+#            driver=${{ secrets.DRIVER }}
 
     # 参考：https://github.com/peter-evans/repository-dispatch#token
     - name: dispatch update-pkgs

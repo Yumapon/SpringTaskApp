@@ -1,5 +1,6 @@
 FROM openjdk:11.0.12-jdk
 
+# Dockerコンテナに変数を渡す挙動をDockerCompose側に移動
 #ARG url
 #ARG username
 #ARG password
