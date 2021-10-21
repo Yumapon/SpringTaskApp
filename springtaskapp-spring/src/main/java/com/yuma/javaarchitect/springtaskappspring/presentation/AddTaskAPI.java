@@ -6,6 +6,7 @@ import com.yuma.javaarchitect.springtaskappspring.presentation.model.AddTaskResD
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -24,6 +25,7 @@ public class AddTaskAPI {
     @NonNull
     @PutMapping(path =  "/addtask", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin
     public AddTaskResDto add(@NonNull @RequestBody AddTaskReqDto reqDto){
 
         //

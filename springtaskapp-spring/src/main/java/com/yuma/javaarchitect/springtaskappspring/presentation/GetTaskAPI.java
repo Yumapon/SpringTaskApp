@@ -25,6 +25,7 @@ public class GetTaskAPI {
 
     @NonNull
     @GetMapping(path = "/gettask/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     public GetTaskByIdResDto getTaskById(@NonNull @PathVariable("id") String id) {
 
         Task task = usecase.invoke(id);

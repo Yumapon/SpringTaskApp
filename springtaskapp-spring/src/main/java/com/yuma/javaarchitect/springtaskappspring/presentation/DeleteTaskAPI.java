@@ -2,6 +2,7 @@ package com.yuma.javaarchitect.springtaskappspring.presentation;
 
 import com.yuma.javaarchitect.springtaskappcore.usecase.DeleteTaskUsecase;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ public class DeleteTaskAPI {
 
     @NonNull
     @DeleteMapping(path = "/deletetask/{id}")
+    @CrossOrigin
     public void changeTask(@NonNull @PathVariable("id") String id){
         usecase.invoke(id);
     }
