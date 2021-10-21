@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 
+import org.springframework.web.bind.annotation.PathVariable;
+
 @AllArgsConstructor
 @RestController
 public class ChangeTaskAPI {
@@ -20,10 +22,10 @@ public class ChangeTaskAPI {
     private final ChangeTaskUsecase usecase;
 
     @NonNull
-    @PostMapping(path = "/changetask", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ChangeTaskResDto changeTask(@NonNull @RequestBody ChangeTaskReqDto reqDto){
+    @PostMapping(path = "/changetask/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ChangeTaskResDto changeTask(@NonNull @PathVariable("id") String id, @NonNull @RequestBody ChangeTaskReqDto reqDto){
 
-        usecase.invoke(reqDto.getNum(), reqDto.getName(), reqDto.getContent(), reqDto.getDeadline(), reqDto.getClient());
+        usecase.invoke(id, reqDto.getName(), reqDto.getContent(), reqDto.getDeadline(), reqDto.getClient());
 
         ChangeTaskResDto result = ChangeTaskResDto.builder().id(reqDto.getNum()).build();
 
