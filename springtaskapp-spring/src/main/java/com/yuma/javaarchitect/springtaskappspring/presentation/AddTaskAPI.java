@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,13 +18,14 @@ import lombok.NonNull;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("yuma/task")
 public class AddTaskAPI {
 
     @NonNull
     private final AddTaskUsecase usecase;
 
     @NonNull
-    @PutMapping(path =  "/addtask", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin
     public AddTaskResDto add(@NonNull @RequestBody AddTaskReqDto reqDto){

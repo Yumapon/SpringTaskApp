@@ -10,6 +10,8 @@ import com.yuma.javaarchitect.springtaskappspring.presentation.model.GetTaskById
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,15 +20,18 @@ import lombok.NonNull;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("yuma/task")
 public class GetTaskAPI {
 
     @NonNull
     private final GetTaskUsecase usecase;
 
     @NonNull
-    @GetMapping(path = "/task/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public GetTaskByIdResDto getTaskById(@NonNull @PathVariable("id") String id) {
+    public GetTaskByIdResDto getTaskById(@NonNull @PathVariable("id") String id, @PathVariable("email") String email) {
+
+        System.out.println("email" + email);
 
         Task task = usecase.invoke(id);
 
@@ -43,9 +48,11 @@ public class GetTaskAPI {
     }
 
     @NonNull
-    @GetMapping(path = "getall", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/getall", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public GetTaskAllResDto getTaskAll(){
+    public GetTaskAllResDto getTaskAll(@RequestParam("email") String email){
+
+        System.out.println("email:" + email);
 
         List<Task> taskList = usecase.invoke();
 
