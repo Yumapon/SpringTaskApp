@@ -20,11 +20,9 @@ public class GetTaskUsecase {
         Task task;
 
         if(repo.exists(inputid)) {
-            System.out.println("ちゃんとこっち来てる");
             task  = repo.getbyid(inputid);
             System.out.println(task.getNum() + task.getName() + task.getContent() + task.getDeadline() + task.getClient());
         }else{
-            System.out.println("こっち来てる");
             task = Task.builder().build();
         }
 

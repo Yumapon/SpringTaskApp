@@ -13,11 +13,20 @@ management:
       exposure:
         include: "prometheus, health"
 
+logging:
+    file: 
+      name: logs/myapp.log
+    level:
+        org.springframework.web: INFO
+
 amazon:
   dynamodb:
     endpoint: https://dynamodb.ap-northeast-1.amazonaws.com
   credential:
     profile: default
+
+api.destinations:
+    opaapiurl: localhost:8181
 
 #spring.datasource.url=${SPRING_DATASOURCE_URL}
 #spring.datasource.username=${SPRING_DATASOURCE_USERNAME}

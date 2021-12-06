@@ -1,14 +1,16 @@
 package com.yuma.javaarchitect.springtaskappspring.presentation;
 
 import java.util.List;
-import java.util.Optional;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.yuma.javaarchitect.springtaskappcore.domain.entity.Task;
 import com.yuma.javaarchitect.springtaskappcore.usecase.GetTaskUsecase;
-import com.yuma.javaarchitect.springtaskappspring.dynamo.APIUser;
+import com.yuma.javaarchitect.springtaskappspring.presentation.error.UnauthorizedError;
 import com.yuma.javaarchitect.springtaskappspring.presentation.model.GetTaskAllResDto;
 import com.yuma.javaarchitect.springtaskappspring.presentation.model.GetTaskByIdResDto;
+import com.yuma.javaarchitect.springtaskappspring.service.CallApiService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,94 +19,111 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
+
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 
+/**
+ * GET MethodのAPIを定義するクラス
+ * 
+ * 現状定義しているAPIは以下二つ
+ * {@link GetTaskAPI#getTaskById(String, String)}
+ * {@link GetTaskAPI#getTaskAll(String)}
+ * 
+ */
 @AllArgsConstructor
 @RestController
 @RequestMapping("yuma/task")
 public class GetTaskAPI {
 
+    //Task取得実行クラス
     @NonNull
     private final GetTaskUsecase usecase;
 
-    //DynamoDBのMapperClass
+    //API呼び出しクラス
     @Autowired
-    private final DynamoDBMapper mapper;
+    private final CallApiService service;
+
+    //Loggerクラス
+    private static final Logger logger = LoggerFactory.getLogger(GetTaskAPI.class);
 
     /**
-     * TODO コメント
+     * idで渡されたtaskを一つ返す。
+     * 権限種別はread
+     * 
+     * 実行可能Roleはadminとguest
+     * 
+     * これも本当はemailは使いたくないけど、、、いちいち一意な値をつけるの面倒
      * 
      * @param id
      * @param email
      * @return
+     * @throws UnauthorizedError
      */
     @NonNull
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public GetTaskByIdResDto getTaskById(@NonNull @PathVariable("id") String id, @RequestParam("email") String email) {
+    public GetTaskByIdResDto getTaskById(@NonNull @PathVariable("id") String id, @RequestParam("email") String email) throws UnauthorizedError {
 
-        System.out.println("email" + email);
+        //Log記録
+        logger.info("start getTask api");
 
-        Task task = usecase.invoke(id);
+        //権限チェック
+        if(service.checkRole(email, "read")){
+            Task task = usecase.invoke(id);
 
-        GetTaskByIdResDto result = GetTaskByIdResDto.builder()
-                                        .id(task.getNum())
-                                        .name(task.getName())
-                                        .content(task.getContent())
-                                        .deadline(task.getDeadline())
-                                        .client(task.getClient())
-                                        .build();
+            GetTaskByIdResDto result = GetTaskByIdResDto.builder()
+                                            .id(task.getNum())
+                                            .name(task.getName())
+                                            .content(task.getContent())
+                                            .deadline(task.getDeadline())
+                                            .client(task.getClient())
+                                            .build();
 
-        return result;
+            return result;
+        }
+        //Userに権限がない場合、エラー出力
+        else {
+            logger.warn("getTaskAPIを権限のないユーザが呼び出しました");
+            throw new UnauthorizedError();
+        }
 
     }
 
     /**
-     * TODO コメント
+     * DBに格納されているtaskを全て返す。
+     * 権限種別はread
+     * 
+     * 実行可能Roleはadminとguest
+     * 
+     * 本当はemailとかDBに入れたくない。個人情報なので。
      * 
      * @param email
      * @return
+     * @throws UnauthorizedError
      */
     @NonNull
     @GetMapping(path = "/getall", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public GetTaskAllResDto getTaskAll(@RequestParam("email") String email){
+    public GetTaskAllResDto getTaskAll(@RequestParam("email") String email) throws UnauthorizedError{
 
-        /*
-        System.out.println("email:" + email);
+        //Log記録Error
+        logger.info("start getTaskAll api");
 
-        System.out.println("処理開始");
+        //権限チェック
+        if(service.checkRole(email, "read")){
+            List<Task> taskList = usecase.invoke();
+
+            GetTaskAllResDto result = GetTaskAllResDto.builder().taskList(taskList).build();
         
-        APIUser example = new APIUser("example@gmail.com", "admin");
-        repository.save(example);
-
-        Optional<APIUser> result = repository.findById("example@gmail.com");
-        if(result.isPresent())
-            System.out.println(result.get());
-        
-        repository.delete(example);
-        
-        System.out.println("処理終了");
-
-        List<Task> taskList = usecase.invoke();
-
-        GetTaskAllResDto result2 = GetTaskAllResDto.builder().taskList(taskList).build();
-
-        return result2;
-        */
-
-        //データ格納
-        mapper.save(APIUser.builder().email(email).role("guest").build());
-
-        //データ取り出し
-        String id = email;
-        APIUser user = mapper.load(APIUser.class, id);
-        System.out.println(user);
-
-        return null;
+            return result;
+        }
+        //Userに権限がない場合、エラー出力
+        else {
+            logger.warn("getallTaskAPIを権限のないユーザが呼び出しました");
+            throw new UnauthorizedError();
+        }
     }
 
 }

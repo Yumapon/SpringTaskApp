@@ -6,3 +6,9 @@ target/
 
 ### VS Code ###
 .vscode/
+
+### Log File ###
+logs/
+
+### jdeps ###
+jdeps/

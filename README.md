@@ -50,3 +50,6 @@ git push origin v1.0.0
 
 ```yaml
 ```
+
+## Dockerfileの軽量化
+
