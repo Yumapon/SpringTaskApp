@@ -17,6 +17,10 @@ import org.springframework.web.client.RestTemplate;
 
 import lombok.AllArgsConstructor;
 
+
+/**
+ * API呼び出しを定義するクラス
+ */
 @AllArgsConstructor
 @Service
 public class CallApiService {
@@ -62,7 +66,7 @@ public class CallApiService {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         //URLの作成
-        String url = "http://" + apiDestinations.getOpaapiurl() + "/v1/data/httpapi/authz/allow"; 
+        String url = apiDestinations.getOpaapiurlauth();
 
         //requestparamの設定
         String requestJson = "{\"input\": {\"user\": \"" + role + "\",\"action\": \"" + action + "\"}}";
