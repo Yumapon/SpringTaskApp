@@ -229,5 +229,4 @@ grant create session to testuser;
 grant resource to testuser;
 grant unlimited tablespace to testuser;
 ```
->>>>>>> 14b289e02d3f6b6b55cdee194fbd5018b0696ecb
 
