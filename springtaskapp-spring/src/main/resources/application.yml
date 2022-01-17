@@ -33,7 +33,7 @@ amazon:
 
 api.destinations:
     opaapiurl: 
-      auth: http://localhost:8181/v1/data/httpapi/authz/allow
+      auth: http://opa:8181/v1/data/httpapi/authz/allow
 
 #spring.datasource.url=${SPRING_DATASOURCE_URL}
 #spring.datasource.username=${SPRING_DATASOURCE_USERNAME}
@@ -60,14 +60,12 @@ api.destinations:
 #export SPRING_DATASOURCE_PASSWORD
 #export SPRING_DATASOURCE_DRIVERCLASSNAME=com.mysql.cj.jdbc.Driver
 
-# export SPRING_DATASOURCE_URL=jdbc:oracle:thin:@localhost:1521/taskappdatabase.localdomain
-# export SPRING_DATASOURCE_USERNAME=TASKAPP_ADMIN
-# export SPRING_DATASOURCE_PASSWORD=password
-# export SPRING_DATASOURCE_DRIVERCLASSNAME=oracle.jdbc.OracleDriver
+#export SPRING_DATASOURCE_URL=jdbc:oracle:thin:@localhost:1521/taskappdatabase.localdomain
+#export SPRING_DATASOURCE_USERNAME=TASKAPP_ADMIN
+#export SPRING_DATASOURCE_PASSWORD=password
+#export SPRING_DATASOURCE_DRIVERCLASSNAME=oracle.jdbc.OracleDriver
 
 #export SPRING_DATASOURCE_URL=jdbc:mysql://taskappdatabase.cgan7fbbbc5s.ap-northeast-1.rds.amazonaws.com:3306/taskappdatabase
 #export SPRING_DATASOURCE_USERNAME=admin
 #export SPRING_DATASOURCE_PASSWORD
 #export SPRING_DATASOURCE_DRIVERCLASSNAME=com.mysql.cj.jdbc.Driver
-
-#DEMO

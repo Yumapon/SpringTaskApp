@@ -12,7 +12,7 @@ public class WebConfig {
 
   @Bean
   public Filter TracingFilter() {
-    return new AWSXRayServletFilter("SpringTaskApp(R)");
+    return new AWSXRayServletFilter("Springtaskapp");
   }
   
 }

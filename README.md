@@ -6,6 +6,45 @@ ReadOnlyのApplication
 
 本当はこいつでDBにアクセスする際はReadOnlyのuserでアクセスさせたい
 
+## App展開コマンド
+
+```sh
+#SpringTaskAppとxrayについては事前にimageのビルドが必要
+
+#Appを動かすNW空間を作成
+docker network create taskapp
+
+#dbはあらかじめ動いているものとする。
+#もしコンテナ環境でDBを実行している場合は以下を実行
+docker network connect <dbコンテナ>
+
+#taskappを展開
+#環境変数は事前にexportコマンドで定義しておいてください
+docker container run -p 8080:8080 \         
+-e SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL} \
+-e SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME} \
+-e SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD} \
+-e SPRING_DATASOURCE_DRIVERCLASSNAME=${SPRING_DATASOURCE_DRIVERCLASSNAME} \
+-e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
+-e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
+--net=taskapp \
+--name taskapp1 \
+taskapp:latest
+
+#opa起動
+docker run -it --rm -p 8181:8181 openpolicyagent/opa run --server --addr :8181 --net=taskapp
+
+#x-ray起動
+docker container run \
+--attach STDOUT \
+--name xray \
+--net=taskappreadnetwork \
+-p 2000:2000/udp \
+-e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
+-e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
+xray:latest
+```
+
 ## secretsに設定必要な項目
 
 1. DOCKERHUB_TOKEN
