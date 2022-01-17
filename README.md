@@ -2,6 +2,10 @@
 
 [![Build and Push](https://github.com/Yumapon/SpringTaskApp/actions/workflows/maven.yml/badge.svg)](https://github.com/Yumapon/SpringTaskApp/actions/workflows/maven.yml)
 
+ReadOnlyのApplication
+
+本当はこいつでDBにアクセスする際はReadOnlyのuserでアクセスさせたい
+
 ## secretsに設定必要な項目
 
 1. DOCKERHUB_TOKEN

@@ -13,21 +13,6 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
     @Bean
-    public AddTaskUsecase addTaskUsecase(TaskRepo repo) {
-        return new AddTaskUsecase(repo);
-    }
-
-    @Bean
-    public ChangeTaskUsecase changeTaskUsecase(TaskRepo repo) {
-        return new ChangeTaskUsecase(repo);
-    }
-
-    @Bean
-    public DeleteTaskUsecase deleteTaskUsecase(TaskRepo repo) {
-        return new DeleteTaskUsecase(repo);
-    }
-
-    @Bean
     public GetTaskUsecase getTaskUsecase(TaskRepo repo) {
         return new GetTaskUsecase(repo);
     }

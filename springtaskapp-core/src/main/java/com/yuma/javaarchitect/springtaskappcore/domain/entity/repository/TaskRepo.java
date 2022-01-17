@@ -8,13 +8,7 @@ public interface TaskRepo {
     
     boolean exists(String num);
 
-    void add(Task task);
-
     List<Task> getAll();
 
     Task getbyid(String num);
-
-    void update(Task task);
-
-    void remove(String num);
 }

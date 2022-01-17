@@ -38,12 +38,6 @@ public class SpringTaskRepo implements TaskRepo{
     }
 
     @Override
-    public void add(@NonNull Task task) {
-        repository.save(buildEntity(task, true));
-        
-    }
-
-    @Override
     public List<Task> getAll() {
         return StreamSupport.stream(repository.findAll().spliterator(), false).map(repositoryEntity -> {
             return Task.builder()
@@ -63,19 +57,6 @@ public class SpringTaskRepo implements TaskRepo{
 
         TaskDaoEntity dao = (repository.findById(id)).get();
         return Task.builder().num(dao.getNum()).name(dao.getName()).deadline(dao.getDeadline()).content(dao.getContent()).client(dao.getClient()).build();
-        
-    }
-
-    @Override
-    public void update(Task task) {
-        repository.deleteById(task.getNum());
-        repository.save(buildEntity(task, true));
-        
-    }
-
-    @Override
-    public void remove(String id) {
-        repository.deleteById(id);
         
     }
     
