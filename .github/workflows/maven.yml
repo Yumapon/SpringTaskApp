@@ -19,13 +19,6 @@ jobs:
     #ジョブの実行環境
     runs-on: ubuntu-latest
 
-# Dockerコンテナに変数を渡す挙動をDockerCompose側に移動
-#    env:
-#      SPRING_DATASOURCE_URL: ${{ secrets.URL }}
-#      SPRING_DATASOURCE_USERNAME: ${{ secrets.USERNAME }}
-#      SPRING_DATASOURCE_PASSWORD: ${{ secrets.PASSWORD }}
-#      SPRING_DATASOURCE_DRIVERCLASSNAME:  ${{ secrets.DRIVER }}
-
     #実行する処理やコマンドを指定
     steps:
     - uses: actions/checkout@v2 #リポジトリからのチェックアウトを行う「actions/checkout」アクションを実行する
@@ -52,21 +45,13 @@ jobs:
       id: meta
       uses: docker/metadata-action@v3
       with:
-        images: keropon48/springtaskapp
+        images: keropon48/springtaskappr
 
     - name: Login to Docker Hub
       uses: docker/login-action@v1
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-    #BuildやPushの方法を変更しました
-    #- name: Build, tag, and push image to Github
-    #  env:
-    #    DOCKERHUB_REPOSITORY: springtaskapp
-    #  run: |
-    #    docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/$DOCKERHUB_REPOSITORY:${{ steps.meta.outputs.tags }} springtaskapp-spring
-    #    docker push ${{ secrets.DOCKERHUB_USERNAME }}/$DOCKERHUB_REPOSITORY:${{ steps.meta.outputs.tags }}
 
     # Docker公式で用意されているモジュールがあったため使用。
     # これでやると疎結合にできないけど、面倒なのでこれで実装
@@ -78,13 +63,7 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-# Dockerコンテナに変数を渡す挙動をDockerCompose側に移動
-#        build-args: |
-#            url=${{ secrets.URL }}
-#            username=${{ secrets.USERNAME }}
-#            password=${{ secrets.PASSWORD }}
-#            driver=${{ secrets.DRIVER }}
-
+        
     # 参考：https://github.com/peter-evans/repository-dispatch#token
     - name: dispatch update-pkgs
       uses: peter-evans/repository-dispatch@v1

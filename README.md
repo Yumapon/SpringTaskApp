@@ -272,4 +272,3 @@ grant create session to testuser;
 grant resource to testuser;
 grant unlimited tablespace to testuser;
 ```
-
