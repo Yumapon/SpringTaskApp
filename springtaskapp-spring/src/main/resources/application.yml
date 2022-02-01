@@ -33,7 +33,7 @@ amazon:
 
 api.destinations:
     opaapiurl: 
-      auth: http://opa:8181/v1/data/httpapi/authz/allow
+      auth: http://localhost:8181/v1/data/httpapi/authz/allow
 
 #spring.datasource.url=${SPRING_DATASOURCE_URL}
 #spring.datasource.username=${SPRING_DATASOURCE_USERNAME}
