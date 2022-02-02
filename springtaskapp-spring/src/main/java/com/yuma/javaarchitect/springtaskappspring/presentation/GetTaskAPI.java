@@ -108,7 +108,7 @@ public class GetTaskAPI {
     @CrossOrigin
     public GetTaskAllResDto getTaskAll(@RequestParam("email") String email) throws UnauthorizedError{
 
-        //Log記録Error
+        //Log記録
         logger.info("start getTaskAll api");
 
         //権限チェック
@@ -116,6 +116,9 @@ public class GetTaskAPI {
             List<Task> taskList = usecase.invoke();
 
             GetTaskAllResDto result = GetTaskAllResDto.builder().taskList(taskList).build();
+
+            //Log記録Error
+            logger.info("end getTaskAll api");
         
             return result;
         }
