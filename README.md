@@ -5,6 +5,7 @@
 ReadOnlyのApplication
 
 本当はこいつでDBにアクセスする際はReadOnlyのuserでアクセスさせたい
+[x-ray](https://docs.aws.amazon.com/ja_jp/xray/latest/devguide/xray-console-sampling.html)
 
 ## App展開コマンド
 

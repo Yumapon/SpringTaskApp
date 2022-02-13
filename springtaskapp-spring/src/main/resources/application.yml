@@ -18,7 +18,7 @@ logging:
       name: logs/myapp.log
     level:
         org.springframework.web: INFO
-        com.amazonaws.xray: ERROR
+        com.amazonaws.xray: INFO
 
 opentracing:
   jaeger:
