@@ -15,11 +15,12 @@ public class DynamoDBConfig {
     public AmazonDynamoDB amazonDynamoDB() {
         return AmazonDynamoDBClientBuilder.standard()
                                         .withRegion("ap-northeast-1")
+                                        //.withRequestHandlers(new TracingHandler(AWSXRay.getGlobalRecorder()))
                                         .build();
     }
 
     @Bean
-    public DynamoDBMapper dynamoDBMapper() {
+    public DynamoDBMapper dynamoDBMapper() {    
         return new DynamoDBMapper(AmazonDynamoDBClientBuilder.standard()
                                                             .withRegion("ap-northeast-1")
                                                             .build());

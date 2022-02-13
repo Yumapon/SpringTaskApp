@@ -2,6 +2,7 @@ package com.yuma.javaarchitect.springtaskappspring.presentation;
 
 import java.util.List;
 
+import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.yuma.javaarchitect.springtaskappcore.domain.entity.Task;
 import com.yuma.javaarchitect.springtaskappcore.usecase.GetTaskUsecase;
 import com.yuma.javaarchitect.springtaskappspring.presentation.error.UnauthorizedError;
@@ -35,6 +36,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 @RestController
 @RequestMapping("yuma/task")
+@XRayEnabled
 public class GetTaskAPI {
 
     //Task取得実行クラス

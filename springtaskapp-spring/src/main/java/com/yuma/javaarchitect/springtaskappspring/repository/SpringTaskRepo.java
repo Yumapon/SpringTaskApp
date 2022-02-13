@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.yuma.javaarchitect.springtaskappcore.domain.entity.Task;
 import com.yuma.javaarchitect.springtaskappcore.domain.entity.repository.TaskRepo;
 import com.yuma.javaarchitect.springtaskappspring.repository.dao.TaskDao;
@@ -16,6 +17,7 @@ import lombok.NonNull;
 
 @AllArgsConstructor
 @Repository
+@XRayEnabled
 public class SpringTaskRepo implements TaskRepo{
 
     @NonNull

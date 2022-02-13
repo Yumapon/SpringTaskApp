@@ -1,6 +1,7 @@
 package com.yuma.javaarchitect.springtaskappspring.service;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.xray.spring.aop.XRayEnabled;
 import com.yuma.javaarchitect.springtaskappspring.dynamo.APIUser;
 import com.yuma.javaarchitect.springtaskappspring.service.component.Opacheckres;
 
@@ -23,6 +24,7 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 @Service
+@XRayEnabled
 public class CallApiService {
 
     //API呼び出し用クラス
