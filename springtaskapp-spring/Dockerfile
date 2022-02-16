@@ -1,16 +1,14 @@
 FROM openjdk:11.0.12-jdk
 
-# Dockerコンテナに変数を渡す挙動をDockerCompose側に移動
-#ARG url
-#ARG username
-#ARG password
-#ARG driver
+#グループ、ユーザ作成、必要権限の設定
+RUN groupadd backendapp && \
+    useradd -g backendapp -m backendapp && \
+    mkdir -p /backendapp/logs && \
+    touch /backendapp/logs/apigateway.log && \
+    chown backendapp /backendapp/logs/apigateway.log
 
-#ENV SPRING_DATASOURCE_URL=$url
-#ENV SPRING_DATASOURCE_USERNAME=$username
-#ENV SPRING_DATASOURCE_PASSWORD=$password
-#ENV SPRING_DATASOURCE_DRIVERCLASSNAME=$driver
+USER backendapp
 
-COPY ./target/springtaskapp-spring-0.0.1-SNAPSHOT.jar /root/backend.jar
+COPY ./target/springtaskapp-spring-0.0.1-SNAPSHOT.jar /backendapp/backend.jar
 
-CMD [ "sh", "-c", "java $JAVA_OPTIONS -jar /root/backend.jar" ] 
+CMD [ "sh", "-c", "java $JAVA_OPTIONS -jar /backendapp/backend.jar" ] 
